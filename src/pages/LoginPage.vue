@@ -41,6 +41,7 @@ const login = () => {
     .then(function (response) {
       if (response.data.msg == '登录成功') {
         localStorage.setItem('token', "Bearer " + response.data.data.token);
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
         localStorage.setItem('username', response.data.data.username);
         // window.location.href = '/';
         router.push('/')

@@ -8,7 +8,7 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
   // 生产环境（服务器）：走 Nginx 代理（相对路径）
   axios.defaults.baseURL = '/'
 }
-axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
+// axios.defaults.headers.common['Authorization'] = localStorage.getItem('token')
 axios.defaults.headers.common['Content-Type'] = 'application/json'
 
 // 添加请求拦截器
@@ -17,6 +17,7 @@ axios.interceptors.request.use(
     // 在发送请求之前做些什么
     if (config.url?.indexOf('/api/login') === -1) {
       const token = localStorage.getItem('token')
+      console.log('token', token)
       if (!token) {
         return Promise.reject(new Error('请先登录'))
       }
