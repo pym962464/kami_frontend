@@ -13,7 +13,8 @@
 
 <script setup lang="ts">
 import { useProjectStore } from '@/stores/project';
-import axios from 'axios';
+import axios from '@/api/request';
+
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 import { ElNotification, ElMessageBox } from 'element-plus'
@@ -36,11 +37,8 @@ const deleteProject = () => {
       type: 'warning'
     }
   ).then(() => {
-    axios.get('http://localhost:3000/api/admin/deleteProject', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      },
+    axios.get('/api/admin/deleteProject', {
+
       params: {
         name: currentProject.value
       }

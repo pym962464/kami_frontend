@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, watch, onMounted } from 'vue';
-import axios from 'axios';
+import axios from '@/api/request';
 import { ElNotification } from 'element-plus'
 const form = reactive({
   project: '',
@@ -52,18 +52,12 @@ watch(currentProject, (value) => {
 // 生成卡密
 const generateCards = () => {
   console.log(localStorage.getItem('token'))
-  axios.post('http://localhost:3000/api/admin/generate',
+  axios.post('/api/admin/generate',
     {
       project: form.project,
       count: form.count,
       duration: form.duration
     },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      }
-    }
   )
     .then(function (response) {
       console.log(response.data);
@@ -74,13 +68,8 @@ const generateCards = () => {
     });
 }
 const getProjects = () => {
-  axios.get('http://localhost:3000/api/admin/projects',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      }
-    }
+  axios.get('/api/admin/projects',
+
   )
     .then(function (response) {
       console.log(response.data.data);

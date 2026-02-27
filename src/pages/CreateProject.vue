@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import axios from 'axios';
+import axios from '@/api/request';
 const form = reactive({
   name: '',
 });
@@ -26,16 +26,10 @@ const showMsg = (msg: string) => {
 
 // 创建项目
 const createProject = () => {
-  axios.post('http://localhost:3000/api/admin/createProject',
+  axios.post('/api/admin/createProject',
     {
       name: form.name,
     },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      }
-    }
   )
     .then(function (response) {
       console.log(response.data);

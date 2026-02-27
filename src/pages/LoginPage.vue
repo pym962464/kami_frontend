@@ -23,8 +23,8 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, reactive } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
+import axios from '@/api/request'
 const router = useRouter()
 const form = reactive({
   username: '',
@@ -33,7 +33,8 @@ const form = reactive({
 
 const login = () => {
   console.log('login!')
-  axios.post('http://localhost:3000/api/login', {
+
+  axios.post('/api/login', {
     username: form.username,
     password: form.password
   })

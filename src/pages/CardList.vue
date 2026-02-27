@@ -35,7 +35,7 @@
 import { onMounted, reactive, ref, watch } from 'vue';
 import { ElNotification, ElMessageBox } from 'element-plus'
 
-import axios from 'axios';
+import axios from '@/api/request';
 const currentPage = ref(1)
 const projects: {
   _id: string,
@@ -66,12 +66,8 @@ const deleteCard = (code: string) => {
     }
   ).then(() => {
 
-    axios.get('http://localhost:3000/api/admin/deleteCards',
+    axios.get('/api/admin/deleteCards',
       {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': localStorage.getItem('token')
-        },
         params: {
           code: code
         }
@@ -149,13 +145,8 @@ const getStatusDesc = (row: { status: string }) => {
   return "意外错误";
 }
 const getProjects = () => {
-  axios.get('http://localhost:3000/api/admin/projects',
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      }
-    }
+  axios.get('/api/admin/projects',
+
   )
     .then(function (response) {
       console.log(response.data.data);
@@ -169,12 +160,9 @@ const getProjects = () => {
     });
 }
 const getCards = () => {
-  axios.get('http://localhost:3000/api/admin/cards',
+  axios.get('/api/admin/cards',
     {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-      },
+     
       params: {
         page: currentPage.value,
         count: 10,

@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import axios from '@/api/request'
 export const useProjectStore = defineStore('project', () => {
   const projects = ref<
     {
@@ -12,12 +12,7 @@ export const useProjectStore = defineStore('project', () => {
   const currentProject = ref('')
   const getProjects = () => {
     axios
-      .get('http://localhost:3000/api/admin/projects', {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token'),
-        },
-      })
+      .get('/api/admin/projects', {})
       .then(function (response) {
         projects.value = response.data.data || []
         if (projects.value.length > 0) {
